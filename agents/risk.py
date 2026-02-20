@@ -3,31 +3,25 @@ from langchain.prompts import ChatPromptTemplate
 from config import LLM_MODEL
 
 
-class LegalAnalysisAgent:
+class RiskAssessmentAgent:
     def __init__(self):
         self.llm = ChatOpenAI(model=LLM_MODEL, temperature=0)
 
         self.prompt = ChatPromptTemplate.from_template("""
-You are a legal contract analysis expert.
+You are a legal risk assessment agent.
 
-Answer the user's question using ONLY the provided clauses.
-
-Question:
-{question}
+Analyze the clauses below and identify risk exposure.
 
 Clauses:
 {context}
 
-Provide:
-- Clear answer
-- Reference clause sections
-- Do not hallucinate
+Return:
+Risk Level: LOW / MEDIUM / HIGH
+Risk Factors:
+- ...
 """)
 
-    def analyze(self, question, documents):
+    def assess(self, documents):
         context = "\n\n".join([d.page_content for d in documents])
         chain = self.prompt | self.llm
-        return chain.invoke({
-            "question": question,
-            "context": context
-        }).content
+        return chain.invoke({"context": context}).content

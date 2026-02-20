@@ -1,1 +1,4 @@
 venv/
+.env_var
+__pycache__/
+vectorstore/
