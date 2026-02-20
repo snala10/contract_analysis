@@ -7,7 +7,15 @@ class RiskRequired(str, Enum):
 
 class QueryPlannerSchema(BaseModel):
     legal_topic: str = Field(
-        description="The main legal subject or issue discussed in the input text (e.g., termination, liability, confidentiality). only generate the topic",
+        description="The main legal subject or issue discussed in the input text (e.g., termination, liability, confidentiality, Indemnification terms, governing_law, Data_breach, compliance ). only generate the topic",
+    )
+
+    query_type: str = Field(
+        description=(
+            "Specifies the type of agreement: Data Processing Agreement (DPA), "
+            "Service Level Agreement (SLA), Non-Disclosure Agreement (NDA), or None. "
+            "Only return one of: DPA, SLA, NDA, or None."
+        )
     )
 
     risk_analysis_required: str = Field(

@@ -29,5 +29,5 @@ if __name__ == "__main__":
 
     query_planner = QueryUnderstanderAgent()
     # print(query_planner.prompt)
-    print(query_planner.plan("What is the notice period for terminating the NDA?"))
+    print(query_planner.plan("Is liability capped for breach of confidentiality?"))
     

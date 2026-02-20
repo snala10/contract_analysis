@@ -1,8 +1,8 @@
-from agents.query_understander import QueryUnderstanderAgent
-from agents.retrieval import RetrievalAgent
-from agents.analysis import LegalAnalysisAgent
-from agents.risk import RiskAssessmentAgent
-from agents.validator import CitationValidatorAgent
+from query_understander import QueryUnderstanderAgent
+from retrieval import RetrievalAgent
+from analysis import LegalAnalysisAgent
+from risk import RiskAssessmentAgent
+from validator import CitationValidatorAgent
 
 
 class OrchestratorAgent:
@@ -16,7 +16,7 @@ class OrchestratorAgent:
     def handle_query(self, question):
         plan = self.planner.plan(question)
 
-        docs = self.retriever.retrieve(question)
+        docs, scores = self.retriever.retrieve(question)
 
         answer = self.analyzer.analyze(question, docs)
 
@@ -24,8 +24,19 @@ class OrchestratorAgent:
 
         citations = self.validator.validate(answer, docs)
 
+        print(answer)
+        print(risk)
+        print(citations)
+
         return {
             "answer": answer,
             "risk": risk,
             "citations": citations
         }
+
+if __name__ == "__main__":
+
+    query_planner = OrchestratorAgent()
+    # print(query_planner.prompt)
+    print(query_planner.handle_query("Identify any clauses that could pose financial risk to Acme Corp."))
+    

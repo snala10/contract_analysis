@@ -21,7 +21,9 @@ class RetrievalAgent:
 
         # Sort by similarity score (lower = better in Chroma)
         docs = sorted(docs, key=lambda x: x[1])
-        return docs
+        document = [doc[0] for doc in docs]
+        scores = [doc[1] for doc in docs]
+        return document, scores
 
 
 if __name__ == "__main__":

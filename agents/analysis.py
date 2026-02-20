@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from config import LLM_MODEL
+from langchain_core.prompts import ChatPromptTemplate
+from configs import LLM_MODEL
 
 
 class LegalAnalysisAgent:
