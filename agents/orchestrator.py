@@ -1,4 +1,4 @@
-from agents.planner import QueryPlannerAgent
+from agents.query_understander import QueryUnderstanderAgent
 from agents.retrieval import RetrievalAgent
 from agents.analysis import LegalAnalysisAgent
 from agents.risk import RiskAssessmentAgent
@@ -7,7 +7,7 @@ from agents.validator import CitationValidatorAgent
 
 class OrchestratorAgent:
     def __init__(self):
-        self.planner = QueryPlannerAgent()
+        self.planner = QueryUnderstanderAgent()
         self.retriever = RetrievalAgent()
         self.analyzer = LegalAnalysisAgent()
         self.risk_agent = RiskAssessmentAgent()
