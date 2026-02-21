@@ -20,9 +20,9 @@ class QueryPlannerSchema(BaseModel):
         description="Indicates whether a formal legal risk assessment is necessary. Must be 'Yes' or 'No'."
     )
 
-    optimized_search_query: str = Field(
-        description="A concise and well-structured legal search query suitable for researching the issue in legal databases."
-    )
+    # optimized_search_query: str = Field(
+    #     description="A concise and well-structured legal search query suitable for researching the issue in legal databases."
+    # )
 
 class RiskAgentSchema(BaseModel):
     risk_level : str = Field(description="Risk Level: LOW / MEDIUM / HIGH")

@@ -10,7 +10,7 @@ from agents.query_understander import QueryUnderstanderAgent
 from agents.retrieval import RetrievalAgent
 from agents.analysis import LegalAnalysisAgent
 from agents.risk import RiskAssessmentAgent
-from agents.validator import CitationValidatorAgent
+from agents.citation import CreateCitation
 from configs import AGENT_MEMORY_DIR
 import json
 import logging
@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 
 class OrchestratorAgent:
     def __init__(self):
-        self.planner = QueryUnderstanderAgent()
+        self.query_understander = QueryUnderstanderAgent()
         self.retriever = RetrievalAgent()
         self.analyzer = LegalAnalysisAgent()
         self.risk_agent = RiskAssessmentAgent()
-        self.validator = CitationValidatorAgent()
+        self.citation_creator = CreateCitation()
 
     def get_query_type_from_memory(self):
         agent_memory_file = os.path.join(AGENT_MEMORY_DIR, 'memory.json')
@@ -57,16 +57,20 @@ class OrchestratorAgent:
             json.dump(data, f)
 
     def handle_query(self, question):
+
         logger.info(f"User Query : {question}")
         logger.info("="*50)
         logger.info("Started Query Understander Module")
-        qu_output = self.planner.plan(question)
+
+        qu_output = self.query_understander.plan(question)
         logger.info(f"User Query Understander Output : {qu_output}")
         logger.info("="*50)
+
         query_type = qu_output.get('query_type','NA')
         query_type = query_type.strip()
         logger.info(f"query_type from query : {query_type}")
         logger.info("="*50)
+
         docs = None
         if query_type in ['NDA', 'SLA', 'DPA']:
             docs = self.retriever.retrieve_full_document(document_type=query_type)
@@ -87,7 +91,7 @@ class OrchestratorAgent:
 
         risk = self.risk_agent.assess(docs)
 
-        citations = self.validator.validate(docs)
+        citations = self.citation_creator.create_citation(docs)
 
         # print(answer)
         # print(risk)

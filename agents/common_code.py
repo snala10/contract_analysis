@@ -17,8 +17,5 @@ class LLMCall:
                 ],
                 response_format=pydantic_schema    
             )
-        # print(completion)
         response_data = json.loads(completion.choices[0].message.content)
-        # print(response_data)
-        # output = pydantic_schema(**response_data)
         return response_data
