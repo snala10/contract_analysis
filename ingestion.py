@@ -69,31 +69,6 @@ def split_by_clauses(text):
 
     clauses = [clause.strip() for clause in clauses if clause.strip()]
 
-    
-
-    # Merge headings back with content
-    # clauses = []
-    # buffer = ""
-
-    # for part in splits:
-    #     if re.match(pattern, part):
-    #         if buffer:
-    #             clauses.append(buffer)
-    #         buffer = part
-    #     else:
-    #         buffer += part
-
-    # if buffer:
-    #     clauses.append(buffer)
-
-    # # Fallback to full text if split too small
-    # if len(clauses) < 3:
-    #     splitter = RecursiveCharacterTextSplitter(
-    #         chunk_size=800,
-    #         chunk_overlap=100
-    #     )
-    #     return splitter.split_text(text)
-
     return clauses
 
 

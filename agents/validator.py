@@ -4,8 +4,6 @@ class CitationValidatorAgent:
 
         for d in documents:
             source = d.metadata.get("source_document", "Unknown")
-            clause = d.metadata.get("clause_index", "N/A")
-
-            references.append(f"{source} - Clause {clause}")
+            references.append(f"{source}")
 
         return list(set(references))

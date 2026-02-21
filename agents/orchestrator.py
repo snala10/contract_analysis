@@ -48,16 +48,20 @@ class OrchestratorAgent:
         query_type = query_type.strip()
         logger.info(f"query_type from query : {query_type}")
         logger.info("="*50)
+        docs = None
         if query_type in ['NDA', 'SLA', 'DPA']:
-            docs, scores = self.retriever.retrieve(question, document_type=query_type)
+            docs = self.retriever.retrieve_full_document(document_type=query_type)
         else:
             stored_query_type = self.get_query_type_from_memory()
             logger.info(f"query_type from memory: {stored_query_type}")
             logger.info("="*50)
             if stored_query_type in ['NDA', 'SLA', 'DPA']:
-                docs, scores = self.retriever.retrieve(question, document_type=stored_query_type)
+                docs = self.retriever.retrieve_full_document(document_type=stored_query_type)
+                docs_semantic, scores = self.retriever.retrieve(question, document_type=None)
+                docs = docs + docs_semantic
         
-        docs, scores = self.retriever.retrieve(question, document_type=None)
+        if docs==None:
+            docs, scores = self.retriever.retrieve(question, document_type=None)
 
         answer = self.analyzer.analyze(question, docs)
 
