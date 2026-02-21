@@ -15,6 +15,12 @@ def get_doc_id(doc):
 
 def load_text_documents(folder_path):
     documents = []
+    document_type_mapping = {
+        "data_processing_agreement":'DPA',
+        "service_level_agreement":'SLA',
+        "vendor_services_agreement":'SLA',
+        "nda_acme_vendor":'NDA'
+    }
 
     for file in os.listdir(folder_path):
         if not file.endswith(".txt"):
@@ -41,6 +47,7 @@ def load_text_documents(folder_path):
                     metadata={
                         "source_document": file,
                         "clause_index": idx,
+                        "document_type": document_type_mapping[document_title],
                         "document_title":document_title,
                         "document_header" : document_header
                     }

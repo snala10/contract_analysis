@@ -21,7 +21,6 @@ Clauses:
 Provide:
 - Clear answer
 - Reference clause sections
-- Do not hallucinate
 """)
 
     def analyze(self, question, documents):

@@ -17,7 +17,7 @@ Clauses:
 
 Return:
 Risk Level: LOW / MEDIUM / HIGH
-Risk Factors:
+Risk Factors: keep it brief only 2-3 lines. 
 - ...
 """)
 
