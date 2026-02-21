@@ -2,6 +2,7 @@ from agents.orchestrator import OrchestratorAgent
 import os
 from configs import AGENT_MEMORY_DIR
 import logging
+from rich.console import Console
 logger = logging.getLogger(__name__)
 def main():
     orchestrator = OrchestratorAgent()
@@ -16,25 +17,30 @@ def main():
         logger.info(f"{agent_memory_file} Agent Memory does not exist.")
 
     while True:
-        query = input(">> ")
+        # query = input("Ask Your Query >>> ")
+        
+
+        console = Console()
+
+        query = console.input("[bold red]🔍 Ask Your Query >>> [/bold red]")
 
         if query.lower() in ["exit", "quit"]:
             break
 
         response = orchestrator.handle_query(query)
 
-        print("\n==============================")
-        print("ANSWER:\n", response["answer"])
+        console.print("\n [bold cyan]  ======================================= [/bold cyan] ")
+        console.print("\n \n [bold green] ✓ ANSWER : [/bold green]", response["answer"])
         risk_level = response["risk_level"]
         risk_level = risk_level.upper()
         if risk_level=="HIGH":
             print("\nRISK ANALYSIS:\n")
-            print("\nRISK LEVEL: ", risk_level)
-            print("\nRISK DETAILSS: ", response["risk_details"])
-        print("\nREFERENCED DOCUMENTS:")
-        for c in response["citations"]:
-            print("-", c)
-        print("================================\n")
+            console.print("\n[bold red] RISK  LEVEL : [/bold red]", risk_level)
+            console.print("\n[bold red] RISK  LEVEL : [/bold red] ", response["risk_details"])
+        console.print("\n[bold green] REFERENCED DOCUMENTS : [/bold green]\n")
+        for i, c in enumerate(response["citations"]):
+            print(str(i+1), c)
+        console.print("[bold cyan] ========================================= [/bold cyan] \n")
 
 
 if __name__ == "__main__":
