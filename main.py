@@ -25,11 +25,16 @@ def main():
 
         print("\n==============================")
         print("ANSWER:\n", response["answer"])
-        print("\nRISK ANALYSIS:\n", response["risk"])
+        risk_level = response["risk_level"]
+        risk_level = risk_level.upper()
+        if risk_level=="HIGH":
+            print("\nRISK ANALYSIS:\n")
+            print("\nRISK LEVEL: ", risk_level)
+            print("\nRISK DETAILSS: ", response["risk_details"])
         print("\nREFERENCED DOCUMENTS:")
         for c in response["citations"]:
             print("-", c)
-        print("==============================\n")
+        print("================================\n")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 class CitationValidatorAgent:
-    def validate(self, answer, documents):
+    def validate(self, documents):
         references = []
 
         for d in documents:

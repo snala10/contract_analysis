@@ -75,11 +75,6 @@ def split_by_clauses(text):
 def build_vectorstore(documents):
     embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
 
-    # vectorstore = Chroma.from_documents(
-    #     documents,
-    #     embedding=embeddings,
-    #     persist_directory=CHROMA_PERSIST_DIR
-    # )
     ids = [get_doc_id(doc) for doc in documents]
     vector_store = Chroma(
                     collection_name="acme_vendor",
@@ -88,11 +83,9 @@ def build_vectorstore(documents):
    
     vector_store.add_documents(documents, ids=ids)
 
-    # vectorstore.persist()
     print("✅ Vectorstore built from text files.")
     print("Number of original document:", len(documents))
     print("Number of documents stored:", vector_store._collection.count())
-    # return vector_store
 
 
 if __name__ == "__main__":

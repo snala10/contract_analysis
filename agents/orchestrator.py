@@ -1,11 +1,11 @@
 
 import sys
 import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from logging_setup import setup_logging
-
 setup_logging()
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from agents.query_understander import QueryUnderstanderAgent
 from agents.retrieval import RetrievalAgent
 from agents.analysis import LegalAnalysisAgent
@@ -67,7 +67,7 @@ class OrchestratorAgent:
 
         risk = self.risk_agent.assess(docs)
 
-        citations = self.validator.validate(answer, docs)
+        citations = self.validator.validate(docs)
 
         # print(answer)
         # print(risk)
@@ -75,7 +75,8 @@ class OrchestratorAgent:
 
         return {
             "answer": answer,
-            "risk": risk,
+            "risk_level": risk['risk_level'],
+            "risk_details":risk['risk_details'],
             "citations": citations
         }
 
@@ -85,5 +86,7 @@ if __name__ == "__main__":
     # print(query_planner.prompt)
     answer = query_planner.handle_query("Can Vendor XYZ share Acme’s confidential data with subcontractors?")
     print(answer['answer'])
+    print(answer['risk_level'])
+    print(answer['risk_details'])
     print(answer['citations'])
     

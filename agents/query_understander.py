@@ -2,7 +2,6 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 import sys
 import os
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from configs import LLM_MODEL, AGENT_MEMORY_DIR
 
 import re

@@ -1,9 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
 
-class RiskRequired(str, Enum):
-    yes = "Yes"
-    no = "No"
+
 
 class QueryPlannerSchema(BaseModel):
     legal_topic: str = Field(
@@ -25,3 +23,7 @@ class QueryPlannerSchema(BaseModel):
     optimized_search_query: str = Field(
         description="A concise and well-structured legal search query suitable for researching the issue in legal databases."
     )
+
+class RiskAgentSchema(BaseModel):
+    risk_level : str = Field(description="Risk Level: LOW / MEDIUM / HIGH")
+    risk_details : str = Field(description="Risk Factors: keep it brief only 2-3 lines.")
