@@ -37,6 +37,25 @@ class OrchestratorAgent:
         return stored_value
 
 
+    def store_conversation(self,query, answer):
+        agent_memory_file = os.path.join(AGENT_MEMORY_DIR, 'memory.json')
+        if not os.path.exists(AGENT_MEMORY_DIR):
+            os.makedirs(AGENT_MEMORY_DIR)
+        data = {}
+        if os.path.exists(agent_memory_file):
+            with open(agent_memory_file) as f:
+                data = json.load(f)
+            
+        if "previous_conversation" in data:
+            if len(data['previous_conversation'])>=5:
+                data['previous_conversation'].pop(0)
+            data['previous_conversation'].append({"user_question" : query, "response":answer})
+        else:
+            data['previous_conversation']=[{"user_question" : query, "response":answer}]
+        
+        with open(agent_memory_file,'w') as f:
+            json.dump(data, f)
+
     def handle_query(self, question):
         logger.info(f"User Query : {question}")
         logger.info("="*50)
@@ -64,6 +83,7 @@ class OrchestratorAgent:
             docs, scores = self.retriever.retrieve(question, document_type=None)
 
         answer = self.analyzer.analyze(question, docs)
+        self.store_conversation(question, answer)
 
         risk = self.risk_agent.assess(docs)
 
