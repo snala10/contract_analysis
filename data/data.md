@@ -80,7 +80,7 @@ assistant
 
 **For Example:**
 
-\[ f(x) = x^2 + x + 1, \quad f(x) = -x^2 + 2x - 1 \text{ are quadratic polynomials.} \]
+$$ f(x) = x^2 + x + 1, \quad f(x) = -x^2 + 2x - 1 \text{ are quadratic polynomials.} $$
 
 **Note:** \( f(x) = ax^2 + bx + c, \quad a \neq 0 \text{ is a general degree two polynomial known as quadratic polynomial.} \)
 
